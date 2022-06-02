@@ -1,0 +1,11 @@
+logging:
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+
+spring:
+  rabbitmq:
+    host: 81.69.226.40
+    port: 5672
+    username: zeal
+    password: admin
+    virtual-host: /

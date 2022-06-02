@@ -9,3 +9,6 @@ spring:
     username: zeal
     password: admin
     virtual-host: /
+    listener:
+      simple:
+        prefetch: 1

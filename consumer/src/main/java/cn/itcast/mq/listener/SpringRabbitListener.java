@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 @Component
 public class SpringRabbitListener {
@@ -44,6 +45,7 @@ public class SpringRabbitListener {
     public void directQueue1(String msg) {
         System.out.println("1---directQueue1接收到消息：" + msg + "----" + LocalTime.now());
     }
+
     @RabbitListener(bindings = @QueueBinding(value = @Queue(name = "direct.queue2"),
             exchange = @Exchange(name = "directExchange"),
             key = {"red", "yellow"}))
@@ -57,10 +59,16 @@ public class SpringRabbitListener {
     public void topicQueue1(String msg) {
         System.out.println("1---topicExchange1接收到消息：" + msg + "----" + LocalTime.now());
     }
+
     @RabbitListener(bindings = @QueueBinding(value = @Queue(name = "direct.queue2"),
             exchange = @Exchange(name = "topicExchange", type = ExchangeTypes.TOPIC),
             key = "#.news"))
     public void topicQueue2(String msg) {
         System.out.println("2---topicExchange2接收到消息：" + msg + "----" + LocalTime.now());
+    }
+
+    @RabbitListener(queues = "test.queue")
+    public void objectQueue(Map<String, String> msg) {
+        System.out.println("object.queue接收到消息：" + msg + "----" + LocalTime.now());
     }
 }

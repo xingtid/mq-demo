@@ -46,4 +46,14 @@ public class SpringAmqpTest {
         // 发送消息到交换机
         rabbitTemplate.convertAndSend(exchange, "red", msg);
     }
+
+    @Test
+    public void testSendTopicExchange() {
+        // 交换机名称
+        String exchange = "topicExchange";
+        // 消息
+        String msg = "china.news";
+        // 发送消息到交换机
+        rabbitTemplate.convertAndSend(exchange, "china.news2", msg);
+    }
 }

@@ -1,5 +1,6 @@
 package cn.itcast.mq.listener;
 
+import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -48,5 +49,18 @@ public class SpringRabbitListener {
             key = {"red", "yellow"}))
     public void directQueue2(String msg) {
         System.out.println("2---directQueue2接收到消息：" + msg + "----" + LocalTime.now());
+    }
+
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(name = "direct.queue1"),
+            exchange = @Exchange(name = "topicExchange", type = ExchangeTypes.TOPIC),
+            key = "china.#"))
+    public void topicQueue1(String msg) {
+        System.out.println("1---topicExchange1接收到消息：" + msg + "----" + LocalTime.now());
+    }
+    @RabbitListener(bindings = @QueueBinding(value = @Queue(name = "direct.queue2"),
+            exchange = @Exchange(name = "topicExchange", type = ExchangeTypes.TOPIC),
+            key = "#.news"))
+    public void topicQueue2(String msg) {
+        System.out.println("2---topicExchange2接收到消息：" + msg + "----" + LocalTime.now());
     }
 }
